@@ -1,0 +1,46 @@
+version: '3'
+services:
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  workspace:
+    container_name: workspace
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+
+  nginx:
+    container_name: nginx
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    ports:
+      - 80:80
+    depends_on:
+      - workspace
+      - postgres
+      - redis
+
+  postgres:
+    container_name: postgres
+    image: postgres:10.3
+    volumes:
+      - pgdata:/var/lib/postgres
+    environment:
+        - POSTGRES_DB=homestead
+        - POSTGRES_USER=homestead
+        - POSTGRES_PASSWORD=secret
+    ports:
+        - "54320:5432"
+
+volumes:
+  pgdata:
