@@ -121,6 +121,11 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'client_id' => env('CLIENT_ID'),
+
+    'client_secret' => env('CLIENT_SECRET'),
+
+    'app_url' => env('APP_URL'),
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
