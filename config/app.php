@@ -126,6 +126,8 @@ return [
     'client_secret' => env('CLIENT_SECRET'),
 
     'app_url' => env('APP_URL'),
+
+    'domain' => env('DOMAIN'),
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
