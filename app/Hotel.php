@@ -17,4 +17,9 @@ class Hotel extends Model
     {
         return $this->belongsToMany(User::class, 'hotel_modifier', 'hotel_id', 'user_id');
     }
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class, 'hotel_id');
+    }
 }

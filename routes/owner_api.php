@@ -1,3 +1,3 @@
 <?php 
 
-Route::post('/hotel', 'HotelApiController@createHotel');
+Route::post('/hotel', 'OwnerApiController@createHotel');
