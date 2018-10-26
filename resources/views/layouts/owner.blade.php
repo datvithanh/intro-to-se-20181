@@ -14,7 +14,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://fonts.htgstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
@@ -72,14 +72,16 @@
                 </div>
             </div>
         </nav>
-
+    
         <main class="py-4">
             @yield('content')
         </main>
     </div>
 </body>
+
 <script src="/js/jquery.min.js"></script>
 <script src="/js/vue.min.js"></script>
 <script src="/js/axios.min.js"></script>
 @stack('scripts')
+
 </html>

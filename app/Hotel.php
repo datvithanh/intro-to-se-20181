@@ -12,4 +12,9 @@ class Hotel extends Model
     {
         return $this->hasMany(Booking::class, 'hotel_id');
     }
+
+    public function modifiers()
+    {
+        return $this->belongsToMany(User::class, 'hotel_modifier', 'hotel_id', 'user_id');
+    }
 }
