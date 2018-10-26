@@ -2,37 +2,44 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    Danh sách khách sạn
-                    <button class="btn btn-success" onClick="openHotelModal();" style="float:right;">asd</button>
+        <div class="table-wrapper">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8"><h2>Danh sách khách sạn</h2></div>
+                        <div class="col-md-4">
+                            <button class="btn btn-success" onClick="openHotelModal();" style="float:right;">asd</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <table>
+                    <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th> Mã phòng</th>
-                                <th> Tên</th>
-                                <th> Loại phòng</th>
-                                <th> Available</th>
+                                <th>#</th>
+                                <th> Tên </th>
+                                <th> Địa chỉ</th>
+                                <th> Mô tả</th>
+                                <th> Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td> adksk </td>
-                                <td> asdjj </td>
-                                <td>asjdk</td>
-                                <td> asdkk</td>
-                                <td> askdk</td>
-                            </tr>
+                            @foreach($hotels as $hotel)
+                                <tr>
+                                    <td> {{$hotel['id']}}</td>
+                                    <td> {{$hotel['name']}} </td>
+                                    <td> {{$hotel['address']}} </td>
+                                    <td> {{$hotel['description']}}</td>
+                                    <td>
+                                        <a href="/hotel" class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" style="color:#FFC107">&#xE254;</i></a>
+                                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons" style="color:#E34724">&#xE872;</i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
-    </div>
 </div>
 <div id="hotel-modal" class="modal fade" role="dialog">
     <div class="modal-dialog">

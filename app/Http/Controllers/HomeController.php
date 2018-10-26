@@ -24,13 +24,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = Auth::user();
+        $data['hotels'] = $user->hotels->map(function ($hotel) {
+            return [
+                'id' => $hotel->id,
+                'name' => $hotel->name,
+                'address' => $hotel->address,
+                'description' => $hotel->description
+            ];
+        });
+        return view('home', $data);
     }
 
-    public function owner()
+    public function hotel($hotelId)
     {
-        if(Auth::user())
-            return view('home');
-        return view('auth/login');
+        dd('asdkk');
     }
 }

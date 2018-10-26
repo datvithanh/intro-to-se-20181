@@ -27,4 +27,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function hotels()
+    {
+        return $this->belongsToMany(Hotel::class, 'hotel_modifier', 'user_id', 'hotel_id');
+    }
 }
