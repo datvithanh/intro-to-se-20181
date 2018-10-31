@@ -9,6 +9,7 @@
                         
                     </div>
                 </div>
+                
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8"><h2>Danh sách phòng</h2></div>
@@ -30,7 +31,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                        
+                            @foreach($rooms as $room)
+                            <tr>
+                                <th>{{$room['id']}}</th>
+                                <th>{{$room['name']}}</th>
+                                <th>{{$room['price']}}</th>
+                                <th>{{$room['total']}}</th>
+                                <td width="15%">
+                                        <a href="/hotel/{{$hotel['id']}}" class="add" title="Thông tin chi tiết" data-toggle="tooltip"><i class="material-icons">&#xe3c8;</i></a>
+                                        &nbsp;
+                                        <a class="format_list_bulleted" title="Danh sách đặt phòng" data-toggle="tooltip"><i class="material-icons">&#xe241;</i></a>
+                                        &nbsp;
+                                        <a class="edit" title="Sửa" data-toggle="tooltip"><i class="material-icons" style="color:#FFC107">&#xE254;</i></a>
+                                        &nbsp;
+                                        <a class="delete" title="Xoá" data-toggle="tooltip"><i class="material-icons" style="color:#E34724">&#xE872;</i></a>
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -71,7 +88,7 @@
 @endsection
 @push('scripts')
 <script>
-
+    $('.multipleSelect').fastselect();
     function openHotelModal() {
             $('#room-modal').modal('show');
             $("#submit-modal").css("display", "");
@@ -85,18 +102,24 @@
             return re.test(String(email).toLowerCase());
         }
 
+        function validateNumber(number) {
+            var re = /^[0-9]+$/;
+            return re.test(String(number));
+        }
+
         $(document).ready(function () {
             $("#submit-modal").click(function (event) {
                 event.preventDefault();
                 event.stopPropagation();
                 var name = $('#room-name').val();
-                var address = $('#room-price').val();
+                var price = $('#room-price').val();
                 var description = $('#room-description').val();
-                var total = $('room-total').val();
+                var total = $('#room-total').val();
+                console.log(name + price+description+total);
                 var ok = 0;
-                if (name.trim() == "" || address.trim() == "" || description.trim() == "" || total.trim() == "") ok = 1;
+                if (name.trim() == "" || price.trim() == "" || description.trim() == "" || total.trim() == "") ok = 1;
 
-                if (!name || !address || !description || !total || ok == 1) {
+                if (!name || !price || !description || !total || ok == 1) {
                     $("#alert-modal").html(
                         "<div class='alert alert-danger'>Vui lòng nhập đủ thông tin</div>"
                     );
@@ -114,7 +137,7 @@
                     total: total,
                     _token: "{{csrf_token()}}"
                 };
-                axios.post("/api/hotel/{{$room['id]/room}}", data)
+                axios.post("/api/hotel/{{$hotel['id']}}/room", data)
                     .then(function () {
                         // window.location = "/home";
                     }.bind(this))

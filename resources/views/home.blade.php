@@ -7,7 +7,8 @@
                     <div class="row">
                         <div class="col-md-8"><h2>Danh sách khách sạn</h2></div>
                         <div class="col-md-4">
-                            <button class="btn btn-success" onClick="openHotelModal();" style="float:right;">+ Tạo khách sạn</button>
+                            <a class="btn btn-success" href='/hotel/create' style="float:right;">+ Tạo khách sạn</a>
+                            <!-- <button class="btn btn-success" onClick="openHotelModal();" style="float:right;">+ Tạo khách sạn</button> -->
                         </div>
                     </div>
                 </div>

@@ -28,18 +28,29 @@ class HomeController extends Controller
         return view('home', $data);
     }
 
-    public function hotel($hotelId, Request $request){
+    public function hotel($hotelId, Request $request)
+    {
         $data = [];
         $hotel = Hotel::find($hotelId);
+        if ($hotel == null)
+            return redirect('/not-found');
         $data['hotel'] = [
+            'id' => $hotel->id,
             'name' => $hotel->name,
         ];
-        $data['rooms'] = $hotel->rooms->map(function($room){
+        $data['rooms'] = $hotel->rooms()->orderBy('created_at', 'asc')->get()->map(function ($room) {
             return [
                 'id' => $room->id,
                 'name' => $room->name,
+                'price' => $room->price,
+                'total' => $room->total
             ];
         });
         return view('hotel', $data);
+    }
+
+    public function createHotel()
+    {
+        return view('create-hotel');
     }
 }

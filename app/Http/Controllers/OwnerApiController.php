@@ -22,8 +22,6 @@ class OwnerApiController extends ApiController
         $hotel->description = $request->description;
         $hotel->save();
         $hotel->modifiers()->attach($user->id);
-        // $kasdk = $user->name;
-        // dd(json_decode($user));
         return $this->success(["message" => "successs"]);
     }
 
@@ -35,8 +33,8 @@ class OwnerApiController extends ApiController
         $room->hotel_id = $hotelId;
         $room->name = $request->name;
         $room->price = $request->price;
-        $room->description = $request->description;
-        $room->save();
+        $room->total = $request->total;
+        $room->save(); 
         return $this->success(["message" => "success"]);
     }
 }
