@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Hotel;
+use App\Feature;
+use App\Service;
 
 class HomeController extends Controller
 {
@@ -51,6 +53,13 @@ class HomeController extends Controller
 
     public function createHotel()
     {
-        return view('create-hotel');
+        $data = [];
+        $data['services'] = Service::all()->map(function($service){
+            return [
+                'id' => $service->id,
+                'name' => $service->name,
+            ];
+        });
+        return view('create-hotel', $data);
     }
 }

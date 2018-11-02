@@ -22,4 +22,9 @@ class Hotel extends Model
     {
         return $this->hasMany(Room::class, 'hotel_id');
     }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'hotel_service', 'hotel_id', 'service_id');
+    }
 }

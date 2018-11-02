@@ -21,12 +21,10 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/css/owner.css" rel="stylesheet"/>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://rawgit.com/dbrekalo/fastselect/master/dist/fastselect.min.css">
-    <script src="https://rawgit.com/dbrekalo/fastselect/master/dist/fastselect.standalone.min.js"></script>
-
+    
 </head>
 <body>
-    <div id="app">
+    <div>
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -80,13 +78,17 @@
         <main class="py-4">
             @yield('content')
         </main>
+
     </div>
+
 </body>
 
 <script src="/js/popper.min.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/vue.min.js"></script>
 <script src="/js/axios.min.js"></script>
+<link rel="stylesheet" href="https://rawgit.com/dbrekalo/fastselect/master/dist/fastselect.min.css">
+<script src="https://rawgit.com/dbrekalo/fastselect/master/dist/fastselect.standalone.min.js"></script>
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()

@@ -22,6 +22,9 @@ class OwnerApiController extends ApiController
         $hotel->description = $request->description;
         $hotel->save();
         $hotel->modifiers()->attach($user->id);
+        foreach($request->services as $service_id) {
+            $hotel->services()->attach($service_id);
+        }
         return $this->success(["message" => "successs"]);
     }
 
