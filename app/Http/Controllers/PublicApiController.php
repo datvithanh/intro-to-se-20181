@@ -14,15 +14,14 @@ class PublicApiController extends ApiController
 
     public function uploadImage(Request $request)
     {
-        $image = $request->file('image');
-        if ($image == null)
-            return $this->badRequest(["message" => "Chua gui anh"]);
-        if ($image->guessClientExtension() == 'png')
-            $imageFileName = time() . rand(15, true) . '.png';
-        else
-            $imageFileName = time() . rand(15, true) . '.jpg';
-
-        $path = Storage::disk('public')->put('images', $image);
-        return $this->success(['url' => $path]);
+        // $image = $request->file('image');
+        // if ($image == null)
+        //     return $this->badRequest(["message" => "Chua gui anh"]);
+        // if ($image->guessClientExtension() == 'png')
+        //     $imageFileName = time() . rand(15, true) . '.png';
+        // else
+        //     $imageFileName = time() . rand(15, true) . '.jpg';
+        // $path = Storage::disk('public')->put('images', $image);
+        // return $this->success(['url' => config('app.app_url') . '/' . $path]);
     }
 }

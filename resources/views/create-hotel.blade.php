@@ -28,7 +28,26 @@
                                 <option value="{{$service['id']}}">{{$service['name']}}</option>
                             @endforeach
                         </select>
-                        
+                        <div class="form-group" style="width: 100%;">
+                            <input type="button" class="btn btn-success" id="get_file" value="Grab file">
+                            <input type="file" style="display: none;" id="my_file" multiple>
+                            <table class="table table-striped table-bordered" style="margin-top: 10px">
+                                <thead>
+                                    <tr>
+                                        <th>Ảnh</th>
+                                        <th>Tên</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="image-table">
+                                    <tr>
+                                        <th><img id="blah" src="http://mywebsite.test/assets/img/uriel-soberanes.jpg" style="width: 100px; height:auto;"/></th>
+                                        <th>askdk</th>
+                                        <th><a class="delete" title="Xoá" data-toggle="tooltip"><i class="material-icons" style="color:#E34724">&#xE872;</i></a></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <div id="alert-modal" style="font-size: 14px"></div>
 
                         <button class="btn btn-success" style="width: 100%; margin: 10px; padding: 15px;" id="submit-modal">Đăng
@@ -42,6 +61,19 @@
 @endsection
 @push('scripts')
 <script>
+    document.getElementById('get_file').onclick = function() {
+        document.getElementById('my_file').click();
+    };
+
+    $('input[type=file]').change(function (e) {
+        var names = [];
+        for (var i = 0; i < $(this).get(0).files.length; ++i) {
+            console.log($(this).get(0).files[i].name);            
+            var ele = "<tr><th><img id=\"blah\" src=\"file:///Users/admin/Desktop/" + $(this).get(0).files[i].name +"\" style=\"width: 100px; height:auto;\"/></th><th>askdk</th><th><a class=\"delete\" title=\"Xoá\" data-toggle=\"tooltip\"><i class=\"material-icons\" style=\"color:#E34724\">&#xE872;</i></a></th></tr>";
+            $(ele).appendTo("#image-table");
+        }
+    });
+
 
     $('.multipleSelect').fastselect();
     $(document).ready(function () {

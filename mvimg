@@ -1,0 +1,1 @@
+cp /var/www/public/host/$1 /var/www/public/images/$2
