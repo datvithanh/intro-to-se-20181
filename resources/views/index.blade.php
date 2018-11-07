@@ -1,17 +1,22 @@
 @extends('layouts.master')
 
 @section('content')
-	<div class="page-header" data-parallax="true" style="background-image: url('/assets/img/uriel-soberanes.jpg')">
-		<div class="filter"></div>
-		<div class="content-center">
-			<div class="motto">
-				<h3 class="title-uppercase text-center">Welcome to</h1>
-				<hr width="15%">
-				<h1 class="text-center"><b>Hotel Dominic Parks</b></h3>
-				<hr width="30%">
-				<h5>Tofu helvetica leggings tattooed. Skateboard blue bottle green juice, brooklyn cardigan kitsch fap narwhal organic flexitarian.</h3>
-				<br/>
-			</div>
-		</div>
+<div class="page-header" data-parallax="true" style="background-image: url('/assets/img/uriel-soberanes.jpg')">
+    <div class="page">
+		<input style="padding:10px; width: 30%" placeholder="Chọn ngày" type="text" id="input-id" value="">
+		<input style="padding:10px; width: 30%" placeholder="Địa điểm" type="text" id="" value="">
+		<button class="btn btn-default" id="search-button"> Submit </button>
     </div>
+</div>
+@push('scripts')
+<script>
+    var input = document.getElementById('input-id');
+    var datepicker = new HotelDatepicker(input, {
+        format: 'DD-MM-YYYY'
+    });
+	$('#search-button').click(function(){
+		console.log($('#input-id').val());
+	})
+</script>
+@endpush
 @endsection

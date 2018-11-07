@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Hotel;
 use Illuminate\Support\Facades\Auth;
 use App\Room;
+use App\Image;
 
 class OwnerApiController extends ApiController
 {

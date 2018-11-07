@@ -4767,6 +4767,17 @@ select.selectpicker {
   color: #FFFFFF;
   width: 100%;
 }
+.my-content-center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #FFFFFF;
+}
 .page-header .motto {
   color: #FFFFFF;
   text-align: center;

@@ -35,7 +35,7 @@
                                         &nbsp;
                                         <a class="format_list_bulleted" title="Danh sách đặt phòng" data-toggle="tooltip"><i class="material-icons">&#xe241;</i></a>
                                         &nbsp;
-                                        <a class="edit" title="Sửa" data-toggle="tooltip"><i class="material-icons" style="color:#FFC107">&#xE254;</i></a>
+                                        <a href="/hotel/{{$hotel['id']}}/edit" class="edit" title="Sửa" data-toggle="tooltip"><i class="material-icons" style="color:#FFC107">&#xE254;</i></a>
                                         &nbsp;
                                         <a class="delete" title="Xoá" data-toggle="tooltip"><i class="material-icons" style="color:#E34724">&#xE872;</i></a>
                                     </td>

@@ -1,25 +1,34 @@
-<html>
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
+	<link rel="stylesheet" type="text/css" href="/assets/css/dp.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
 </head>
-
 <body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+<div class="page">
 
-    <link rel="stylesheet" href="https://rawgit.com/dbrekalo/fastselect/master/dist/fastselect.min.css">
-    <script src="https://rawgit.com/dbrekalo/fastselect/master/dist/fastselect.standalone.min.js"></script>
+	<div class="demo">
+		<h3>Demo</h3>
 
+		<div class="demo__item">
+			<div class="demo__input" id="">
+				<input type="text" id="input" value="">
+			</div>
+		</div>
+	</div>
 
-    <select class="multipleSelect" multiple name="language">
-        <option value="Bangladesh">Bangladesh</option>
-        <option value="Barbados">Barbados</option>
-        <option value="Belarus">Belarus</option>
-        <option value="Belgium">Belgium</option>
-    </select>
+</div>
+
+	
 </body>
+<script src="/assets/js/hotel-datepicker.min.js"></script>
+<script src="/assets/js/fecha.min.js"></script>
 <script>
-$('.multipleSelect').fastselect();
-
+    var input = document.getElementById('input');
+	var datepicker = new HotelDatepicker(input, {
+    	format: 'DD-MM-YYYY'
+	});
 </script>
 </html>

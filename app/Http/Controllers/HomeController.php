@@ -62,4 +62,23 @@ class HomeController extends Controller
         });
         return view('create-hotel', $data);
     }
+    
+    public function editHotel($hotelId)
+    {
+        $data = [];
+        $hotel = Hotel::find($hotelId);
+        $data['services'] = Service::all()->map(function($service){
+            return [
+                'id' => $service->id,
+                'name' => $service->name,
+            ];
+        });
+        $data['id'] = $hotel->id;
+        $data['name'] = $hotel->name;
+        $data['address'] = $hotel->address;
+        $data['description'] = $hotel->description;
+        $data['images'] = $hotel->images;
+        // dd($hotel->images);
+        return view('edit-hotel', $data);
+    }
 }

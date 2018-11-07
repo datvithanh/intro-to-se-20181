@@ -18,6 +18,8 @@
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="/assets/css/nucleo-icons.css" rel="stylesheet">
+    <link href="/assets/css/dp.css" rel="stylesheet">
+    <link href="/assets/css/main.css" rel="stylesheet">
 
 
 </head>
@@ -55,5 +57,8 @@
 <script src="/assets/js/tether.min.js" type="text/javascript"></script>
 <script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/assets/js/paper-kit.js?v=2.0.0"></script>
+<script src="/assets/js/hotel-datepicker.min.js"></script>
+<script src="/assets/js/fecha.min.js"></script>
+@stack('scripts')
 
 </html>
