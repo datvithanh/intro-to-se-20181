@@ -27,4 +27,9 @@ class Hotel extends Model
     {
         return $this->belongsToMany(Service::class, 'hotel_service', 'hotel_id', 'service_id');
     }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'hotel_id');
+    }
 }

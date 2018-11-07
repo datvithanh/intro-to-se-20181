@@ -67,11 +67,24 @@
 
     $('input[type=file]').change(function (e) {
         var names = [];
-        for (var i = 0; i < $(this).get(0).files.length; ++i) {
-            console.log($(this).get(0).files[i].name);            
-            var ele = "<tr><th><img id=\"blah\" src=\"file:///Users/admin/Desktop/" + $(this).get(0).files[i].name +"\" style=\"width: 100px; height:auto;\"/></th><th>askdk</th><th><a class=\"delete\" title=\"Xoá\" data-toggle=\"tooltip\"><i class=\"material-icons\" style=\"color:#E34724\">&#xE872;</i></a></th></tr>";
-            $(ele).appendTo("#image-table");
-        }
+        for (var i = 0; i < $(this).get(0).files.length; ++i) 
+            names.push($(this).get(0).files[i].name);
+            // var ele = "<tr><th><img id=\"blah\" src=\"file:///Users/admin/Desktop/" + $(this).get(0).files[i].name +"\" style=\"width: 100px; height:auto;\"/></th><th>askdk</th><th><a class=\"delete\" title=\"Xoá\" data-toggle=\"tooltip\"><i class=\"material-icons\" style=\"color:#E34724\">&#xE872;</i></a></th></tr>";
+            // $(ele).appendTo("#image-table");
+        var data = {
+            image_names: JSON.stringify(names),
+            _token: "{{csrf_token()}}"
+        };
+        axios.post('/api/upload', data)
+            .then(function(response){
+                var urls = response.data.urls;
+                for(var i = 0; i < urls.length; ++i){
+                    var ele = "<tr><th><img id=\"blah\" src=\"" + urls[i] + "\" style=\"width: 100px; height:auto;\"/></th><th>askdk</th><th><a class=\"delete\" title=\"Xoá\" data-toggle=\"tooltip\"><i class=\"material-icons\" style=\"color:#E34724\">&#xE872;</i></a></th></tr>";
+                    $(ele).appendTo("#image-table");
+                }
+            }).catch(function(response){
+
+            })
     });
 
 
@@ -101,13 +114,18 @@
                 var message = "Tạo khách sạn thành công";
                 $("#alert-modal").html("<div class='alert alert-success'>" + message + "</div>");
                 $("#submit-modal").css("display", "none");
-
+                var image_urls = [];
+                var eles = $('#image-table tr th img');
+                for(var i =0; i<eles.length; ++i){
+                    image_urls.push(eles[i].src);
+                }
                 var url = "";
                 var data = {
                     name: name,
                     address: address,
                     description: description,
                     services: servicesArr,
+                    image_urls: image_urls,
                     _token: "{{csrf_token()}}"
                 };
                 axios.post("/api/hotel", data)
