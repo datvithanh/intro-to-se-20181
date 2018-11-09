@@ -7,6 +7,7 @@ use App\Hotel;
 use Illuminate\Support\Facades\Auth;
 use App\Room;
 use App\Image;
+use App\HotelService;
 
 class OwnerApiController extends ApiController
 {
@@ -27,6 +28,32 @@ class OwnerApiController extends ApiController
             $hotel->services()->attach($service_id);
         }
         // $image_urls = json_decode($request->image_urls);
+        foreach ($request->image_urls as $url) {
+            $image = new Image();
+            $image->url = $url;
+            $image->hotel_id = $hotel->id;
+            $image->save();
+        }
+        return $this->success(["message" => "successs"]);
+    }
+
+    public function editHotel($hotelId, Request $request)
+    {
+        $hotel = Hotel::find($hotelId);
+        $hotel->name = $request->name;
+        $hotel->address = $request->address;
+        $hotel->description = $request->description;
+        $hotel->save();
+        // dd($hotel->services);
+        foreach (HotelService::where('hotel_id', $hotel->id)->get() as $service)
+            $service->delete();
+        foreach ($hotel->images as $image)
+            $image->delete();
+
+        foreach ($request->services as $service_id) {
+            $hotel->services()->attach($service_id);
+        }
+
         foreach ($request->image_urls as $url) {
             $image = new Image();
             $image->url = $url;

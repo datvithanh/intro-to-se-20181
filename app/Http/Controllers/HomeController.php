@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Hotel;
 use App\Feature;
 use App\Service;
+use App\HotelService;
 
 class HomeController extends Controller
 {
@@ -67,9 +68,11 @@ class HomeController extends Controller
     {
         $data = [];
         $hotel = Hotel::find($hotelId);
-        $data['services'] = Service::all()->map(function($service){
+
+        $data['services'] = Service::all()->map(function($service) use($hotel) {
             return [
                 'id' => $service->id,
+                'selected' => HotelService::where('hotel_id', $hotel->id)->where('service_id', $service->id)->first() ? 1 : 0,
                 'name' => $service->name,
             ];
         });

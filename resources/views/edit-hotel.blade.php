@@ -12,20 +12,24 @@
                     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px 20px">
                         <div class="form-group" style="width: 100%;">
                             <input class="form-control" style="height: 50px" width="100%" id="hotel-name" type="text"
-                                placeholder="Tên" />
+                                placeholder="Tên" value="{{$name}}"/>
                         </div>
                         <div class="form-group" style="width: 100%;">
                             <input class="form-control" style="height: 50px" width="100%" type="text" id="hotel-address"
-                                placeholder="Địa chỉ" />
+                                placeholder="Địa chỉ" value="{{$address}}"/>
                         </div>
                         <div class="form-group" style="width: 100%;">
                             <input class="form-control" style="height: 50px" width="100%" type="text" id="hotel-description"
-                                placeholder="Mô tả" />
+                                placeholder="Mô tả" value="{{$description}}"/>
                         </div>
                         
                         <select class="multipleSelect" multiple name="language">
                             @foreach($services as $service)
-                                <option value="{{$service['id']}}">{{$service['name']}}</option>
+                                @if($service['selected'] == 1)
+                                    <option value="{{$service['id']}}" selected>{{$service['name']}}</option>
+                                @else
+                                    <option value="{{$service['id']}}">{{$service['name']}}</option>
+                                @endif
                             @endforeach
                         </select>
                         <div class="form-group" style="width: 100%;">
@@ -43,8 +47,8 @@
                                     @foreach($images as $image)
                                         <tr>
                                             <th><img id="blah" src="{{$image->url}}" style="width: 100px; height:auto;"/></th>
-                                            <th>askdk</th>
-                                            <th><a class="delete" title="Xoá" data-toggle="tooltip"><i class="material-icons" style="color:#E34724">&#xE872;</i></a></th>
+                                            <th>{{$image->url}}</th>
+                                            <th><a href="#" onclick="deleteImg(this)" class="delete"><i class="material-icons" style="color:#E34724">&#xE872;</i></a></th>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -71,8 +75,6 @@
         var names = [];
         for (var i = 0; i < $(this).get(0).files.length; ++i) 
             names.push($(this).get(0).files[i].name);
-            // var ele = "<tr><th><img id=\"blah\" src=\"file:///Users/admin/Desktop/" + $(this).get(0).files[i].name +"\" style=\"width: 100px; height:auto;\"/></th><th>askdk</th><th><a class=\"delete\" title=\"Xoá\" data-toggle=\"tooltip\"><i class=\"material-icons\" style=\"color:#E34724\">&#xE872;</i></a></th></tr>";
-            // $(ele).appendTo("#image-table");
         var data = {
             image_names: JSON.stringify(names),
             _token: "{{csrf_token()}}"
@@ -81,7 +83,7 @@
             .then(function(response){
                 var urls = response.data.urls;
                 for(var i = 0; i < urls.length; ++i){
-                    var ele = "<tr><th><img id=\"blah\" src=\"" + urls[i] + "\" style=\"width: 100px; height:auto;\"/></th><th>askdk</th><th><a class=\"delete\" title=\"Xoá\" data-toggle=\"tooltip\"><i class=\"material-icons\" style=\"color:#E34724\">&#xE872;</i></a></th></tr>";
+                    var ele = "<tr><th><img id=\"blah\" src=\"" + urls[i] + "\" style=\"width: 100px; height:auto;\"/></th><th>"+urls[i]+"</th><th><a href=\"#\" onclick=\"deleteImg(this)\" class=\"delete\" title=\"Xoá\" data-toggle=\"tooltip\"><i class=\"material-icons\" style=\"color:#E34724\">&#xE872;</i></a></th></tr>";
                     $(ele).appendTo("#image-table");
                 }
             }).catch(function(response){
@@ -91,6 +93,11 @@
 
 
     $('.multipleSelect').fastselect();
+
+    function deleteImg(obj) {
+        obj.parentElement.parentElement.remove();
+    }
+
     $(document).ready(function () {
             $("#submit-modal").click(function (event) {
                 event.preventDefault();
@@ -113,7 +120,7 @@
                     );
                     return;
                 }
-                var message = "Tạo khách sạn thành công";
+                var message = "Sửa khách sạn thành công";
                 $("#alert-modal").html("<div class='alert alert-success'>" + message + "</div>");
                 $("#submit-modal").css("display", "none");
                 var image_urls = [];
@@ -130,9 +137,9 @@
                     image_urls: image_urls,
                     _token: "{{csrf_token()}}"
                 };
-                axios.post("/api/hotel", data)
+                axios.put("/api/hotel/{{$id}}", data)
                     .then(function () {
-                        window.location = "/home";
+                        location.reload();
                     }.bind(this))
                     .catch(function () {
                     }.bind(this));

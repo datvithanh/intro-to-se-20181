@@ -89,11 +89,11 @@
 <script src="/js/axios.min.js"></script>
 <link rel="stylesheet" href="https://rawgit.com/dbrekalo/fastselect/master/dist/fastselect.min.css">
 <script src="https://rawgit.com/dbrekalo/fastselect/master/dist/fastselect.standalone.min.js"></script>
+
+@stack('scripts')
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
 </script>
-@stack('scripts')
-
 </html>

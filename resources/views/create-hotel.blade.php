@@ -34,17 +34,12 @@
                             <table class="table table-striped table-bordered" style="margin-top: 10px">
                                 <thead>
                                     <tr>
-                                        <th>Ảnh</th>
+                                        <th width="15%">Ảnh</th>
                                         <th>Tên</th>
-                                        <th>Actions</th>
+                                        <th width="10%">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="image-table">
-                                    <tr>
-                                        <th><img id="blah" src="http://mywebsite.test/assets/img/uriel-soberanes.jpg" style="width: 100px; height:auto;"/></th>
-                                        <th>askdk</th>
-                                        <th><a class="delete" title="Xoá" data-toggle="tooltip"><i class="material-icons" style="color:#E34724">&#xE872;</i></a></th>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -79,7 +74,7 @@
             .then(function(response){
                 var urls = response.data.urls;
                 for(var i = 0; i < urls.length; ++i){
-                    var ele = "<tr><th><img id=\"blah\" src=\"" + urls[i] + "\" style=\"width: 100px; height:auto;\"/></th><th>askdk</th><th><a class=\"delete\" title=\"Xoá\" data-toggle=\"tooltip\"><i class=\"material-icons\" style=\"color:#E34724\">&#xE872;</i></a></th></tr>";
+                    var ele = "<tr><th><img id=\"blah\" src=\"" + urls[i] + "\" style=\"width: 100px; height:auto;\"/></th><th>"+urls[i]+"</th><th><a href=\"#\" onclick=\"deleteImg(this)\" class=\"delete\" title=\"Xoá\" data-toggle=\"tooltip\"><i class=\"material-icons\" style=\"color:#E34724\">&#xE872;</i></a></th></tr>";
                     $(ele).appendTo("#image-table");
                 }
             }).catch(function(response){
@@ -87,6 +82,9 @@
             })
     });
 
+    function deleteImg(obj) {
+        obj.parentElement.parentElement.remove();
+    }
 
     $('.multipleSelect').fastselect();
     $(document).ready(function () {
