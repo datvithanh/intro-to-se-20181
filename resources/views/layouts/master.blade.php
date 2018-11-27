@@ -15,7 +15,7 @@
     <link href="/assets/css/demo.css" rel="stylesheet" />
 
     <!--     Fonts and icons     -->
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+    <!-- <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'> -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="/assets/css/nucleo-icons.css" rel="stylesheet">
     <link href="/assets/css/dp.css" rel="stylesheet">
@@ -37,11 +37,11 @@
 			<div class="collapse navbar-collapse">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="/index.html" data-scroll="true" href="javascript:void(0)">Components</a>
+						<a class="nav-link" href="/index.html" data-scroll="true" href="javascript:void(0)">Login</a>
 					</li>
-					<li class="nav-item">
+					<!-- <li class="nav-item">
 						<a class="btn btn-round btn-danger" href="https://www.creative-tim.com/product/paper-kit-2-pro"><i class="fa fa-shopping-cart"></i></a>
-					</li>
+					</li> -->
 				</ul>
 			</div>
 		</div>

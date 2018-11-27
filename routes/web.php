@@ -13,11 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'WebController@index');
 
-Route::get('/test', function() {
-    return view('test');
-});
+Route::get('/search', 'WebController@search');
 
+Route::get('/flow', 'WebController@flow');
