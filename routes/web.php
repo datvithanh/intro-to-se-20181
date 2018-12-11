@@ -15,6 +15,6 @@ use Illuminate\Http\Request;
 
 Route::get('/', 'WebController@index');
 
-Route::get('/search', 'WebController@search');
+Route::get('/login', 'WebController@login');
 
-Route::get('/flow', 'WebController@flow');
+Route::get('/search', 'WebController@search');

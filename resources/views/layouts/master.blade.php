@@ -20,7 +20,7 @@
     <link href="/assets/css/nucleo-icons.css" rel="stylesheet">
     <link href="/assets/css/dp.css" rel="stylesheet">
     <link href="/assets/css/main.css" rel="stylesheet">
-
+	<link href="/assets/css/toastr.min.css" rel="stylesheet">
 
 </head>
 <body class="blog-page">
@@ -36,9 +36,18 @@
 			<img class="logo img-responsive" src="https://demo.qloapps.com/img/logo.jpg" alt="Qloapps Demo" width="243" height="61" />
 			<div class="collapse navbar-collapse">
 				<ul class="navbar-nav ml-auto">
+					@if($user == null)
 					<li class="nav-item">
-						<a class="nav-link" href="/index.html" data-scroll="true" href="javascript:void(0)">Login</a>
+						<a class="nav-link" href="/login" data-scroll="true">Login</a>
 					</li>
+					@else
+					<li class="nav-item">
+						<a class="nav-link" href="javascript:void(0)" data-scroll="true">{{$user->name}}</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="javascript:void(0)" data-scroll="true" id="logout-btn">logout</a>
+					</li>
+					@endif
 					<!-- <li class="nav-item">
 						<a class="btn btn-round btn-danger" href="https://www.creative-tim.com/product/paper-kit-2-pro"><i class="fa fa-shopping-cart"></i></a>
 					</li> -->
@@ -59,6 +68,18 @@
 <script src="/assets/js/paper-kit.js?v=2.0.0"></script>
 <script src="/assets/js/hotel-datepicker.min.js"></script>
 <script src="/assets/js/fecha.min.js"></script>
+<script src="/js/axios.min.js"></script>
+<script src="/assets/js/toastr.min.js"></script>
 @stack('scripts')
+<script> 
+	$("#logout-btn").click(function(){
+		axios.put('/api/logout')
+			.then(function(){
 
+			}).catch(function(){
+
+			});
+		window.location = "/";
+	});
+</script>
 </html>

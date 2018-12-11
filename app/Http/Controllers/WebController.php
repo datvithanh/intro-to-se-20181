@@ -4,25 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Hotel;
+use App\User;
+use Illuminate\Foundation\Console\Presets\React;
 
 
 class WebController extends Controller
 {
-
-    public function __construct()
+    protected $data = [];
+    public function __construct(Request $request)
     {
-        $this->data = [];
+        $this->middleware(function ($request, $next) {
+            $user_id = $request->session()->get('user_id');
+            if ($user_id == null)
+                $this->data['user'] = null;
+            else
+                $this->data['user'] = User::find($user_id);
+
+            return $next($request);
+        });
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('index');
+        return view('index', $this->data);
+    }
+
+    public function login(Request $request)
+    {
+        return view('login', $this->data);
     }
 
     public function search(Request $request)
     {
         $hotels = Hotel::all();
-        $this->data['hotels'] = $hotels->map(function($hotel){
+        $this->data['hotels'] = $hotels->map(function ($hotel) {
             return [
                 'id' => $hotel->id,
                 'name' => $hotel->name,
