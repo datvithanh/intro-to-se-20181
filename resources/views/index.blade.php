@@ -45,12 +45,12 @@
     });
 	
     $('#search-button').click(function(){
-		console.log($('#input-id').val());
-        if($('#input-id').val() == ""){
-            alert('Vui lòng chọn ngày đặt phòng');
+        let date = $("#input-id").val();
+        if(date == ""){
+            toastr.error("Please pick the date");
             return;
         }
-        window.location = "/search";
+        window.location = "/search?date=" + date;
 	});
 </script>
 @endpush

@@ -34,6 +34,11 @@ class WebController extends Controller
         return view('login', $this->data);
     }
 
+    public function register(Request $request)
+    {
+        return view('register', $this->data);
+    }
+
     public function search(Request $request)
     {
         $hotels = Hotel::all();

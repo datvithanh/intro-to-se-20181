@@ -8,6 +8,8 @@ use App\Hotel;
 use App\Feature;
 use App\Service;
 use App\HotelService;
+use App\RoomFeature;
+use App\Room;
 
 class HomeController extends Controller
 {
@@ -55,7 +57,7 @@ class HomeController extends Controller
     public function createHotel()
     {
         $data = [];
-        $data['services'] = Service::all()->map(function($service){
+        $data['services'] = Service::all()->map(function ($service) {
             return [
                 'id' => $service->id,
                 'name' => $service->name,
@@ -63,13 +65,26 @@ class HomeController extends Controller
         });
         return view('create-hotel', $data);
     }
-    
+
+    public function createRoom(Request $request)
+    {
+        $data = [];
+        $data['features'] = Feature::all()->map(function ($feature) {
+            return [
+                'id' => $feature->id,
+                'name' => $feature->name,
+            ];
+        });
+        $data['hotel_id'] = $request->hotel_id;
+        return view('create-room', $data);
+    }
+
     public function editHotel($hotelId)
     {
         $data = [];
         $hotel = Hotel::find($hotelId);
 
-        $data['services'] = Service::all()->map(function($service) use($hotel) {
+        $data['services'] = Service::all()->map(function ($service) use ($hotel) {
             return [
                 'id' => $service->id,
                 'selected' => HotelService::where('hotel_id', $hotel->id)->where('service_id', $service->id)->first() ? 1 : 0,
@@ -83,5 +98,27 @@ class HomeController extends Controller
         $data['images'] = $hotel->images;
         // dd($hotel->images);
         return view('edit-hotel', $data);
+    }
+
+    public function editRoom($roomId)
+    {
+        $data = [];
+        $room = Room::find($roomId);
+
+        $data['features'] = Feature::all()->map(function ($feature) use ($room) {
+            return [
+                'id' => $feature->id,
+                'selected' => RoomFeature::where('room_id', $room->id)->where('feature_id', $feature->id)->first() ? 1 : 0,
+                'name' => $feature->name,
+            ];
+        });
+        $data['id'] = $room->id;
+        $data['name'] = $room->name;
+        $data['price'] = $room->price;
+        $data['total'] = $room->total;
+        $data['description'] = $room->description;
+        $data['images'] = json_decode($room->images);
+        $data['hotel_id'] = $room->hotel_id;
+        return view('edit-room', $data);
     }
 }

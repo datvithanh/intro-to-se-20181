@@ -5,7 +5,7 @@
         <div class="table-wrapper">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-8"><h2>Tạo khách sạn</h2></div>
+                        <div class="col-md-8"><h2>Tạo phòng</h2></div>
                     </div>
                 </div>
                 <div class="card-body" style="padding-bottom: 0px">
@@ -15,17 +15,21 @@
                                 placeholder="Tên" />
                         </div>
                         <div class="form-group" style="width: 100%;">
-                            <input class="form-control" style="height: 50px" width="100%" type="text" id="hotel-address"
-                                placeholder="Địa chỉ" />
+                            <input class="form-control" style="height: 50px" width="100%" type="text" id="price"
+                                placeholder="Giá phòng/đêm" />
                         </div>
                         <div class="form-group" style="width: 100%;">
                             <input class="form-control" style="height: 50px" width="100%" type="text" id="hotel-description"
                                 placeholder="Mô tả" />
                         </div>
+                        <div class="form-group" style="width: 100%;">
+                            <input class="form-control" style="height: 50px" width="100%" type="text" id="total"
+                                placeholder="Số lượng phòng" />
+                        </div>
                         
                         <select class="multipleSelect" multiple name="language">
-                            @foreach($services as $service)
-                                <option value="{{$service['id']}}">{{$service['name']}}</option>
+                            @foreach($features as $feature)
+                                <option value="{{$feature['id']}}">{{$feature['name']}}</option>
                             @endforeach
                         </select>
                         <div class="form-group" style="width: 100%;">
@@ -45,8 +49,7 @@
                         </div>
                         <div id="alert-modal" style="font-size: 14px"></div>
 
-                        <button class="btn btn-success" style="width: 100%; margin: 10px; padding: 15px;" id="submit-modal">Đăng
-                            kí
+                        <button class="btn btn-success" style="width: 100%; margin: 10px; padding: 15px;" id="submit-modal">Tạo phòng
                         </button>
                     </div>
                 </div>
@@ -64,8 +67,6 @@
         var names = [];
         for (var i = 0; i < $(this).get(0).files.length; ++i) 
             names.push($(this).get(0).files[i].name);
-            // var ele = "<tr><th><img id=\"blah\" src=\"file:///Users/admin/Desktop/" + $(this).get(0).files[i].name +"\" style=\"width: 100px; height:auto;\"/></th><th>askdk</th><th><a class=\"delete\" title=\"Xoá\" data-toggle=\"tooltip\"><i class=\"material-icons\" style=\"color:#E34724\">&#xE872;</i></a></th></tr>";
-            // $(ele).appendTo("#image-table");
         var data = {
             image_names: JSON.stringify(names),
             _token: "{{csrf_token()}}"
@@ -91,20 +92,25 @@
             $("#submit-modal").click(function (event) {
                 event.preventDefault();
                 event.stopPropagation();
-                servicesArr = [];
+                featuresArr = [];
                 if($('.fstChoiceItem').length !== 0){
                     elem = $('.fstChoiceItem');
                     for(i=0; i<elem.length; ++i)
-                        servicesArr.push(elem[i].getAttribute('data-value'));
+                        featuresArr.push(elem[i].getAttribute('data-value'));
                 }
-                var name = $('#hotel-name').val();
-                var address = $('#hotel-address').val();
-                var description = $('#hotel-description').val();
+                let name = $('#hotel-name').val();
+                let price = $('#price').val();
+                let description = $('#hotel-description').val();
+                let total = $("#total").val();
                 var ok = 0;
-                if (name.trim() == "" || address.trim() == "" || description.trim() == "") ok = 1;
+                if (name.trim() == "" || price.trim() == "" || description.trim() == "" || total.trim() == "") ok = 1;
 
-                if (!name || !address || !description || ok == 1) {
+                if (!name || !price || !description || ok == 1) {
                     toastr.error("Vui lòng nhập đủ thông tin");
+                    return;
+                }
+                if(isNaN(price)){
+                    toastr.error("Giá phòng bắt buộc phải là số thực");
                     return;
                 }
                 var message = "Tạo khách sạn thành công";
@@ -118,15 +124,17 @@
                 var url = "";
                 var data = {
                     name: name,
-                    address: address,
+                    price: price,
                     description: description,
-                    services: servicesArr,
-                    image_urls: image_urls,
+                    features: featuresArr,
+                    image_urls: JSON.stringify(image_urls),
+                    hotel_id: {{$hotel_id}},
+                    total: total,
                     _token: "{{csrf_token()}}"
                 };
-                axios.post("/api/hotel", data)
+                axios.post("/api/room", data)
                     .then(function () {
-                        window.location = "/home";
+                        window.location = "/hotel/{{$hotel_id}}";
                     }.bind(this))
                     .catch(function () {
                     }.bind(this));

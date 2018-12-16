@@ -17,4 +17,7 @@ Route::get('/', 'WebController@index');
 
 Route::get('/login', 'WebController@login');
 
+Route::get('/register', 'WebController@register');
+
 Route::get('/search', 'WebController@search');
+

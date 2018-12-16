@@ -10,6 +10,6 @@ class Room extends Model
 
     public function features()
     {
-        return $this->hasManyThrough(Feature::class, 'room_feature', 'feature_id', 'room_id');
+        return $this->belongsToMany(Feature::class, 'room_feature', 'room_id', 'feature_id');
     }    
 }

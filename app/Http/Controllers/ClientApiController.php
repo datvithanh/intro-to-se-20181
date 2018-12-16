@@ -35,6 +35,7 @@ class ClientApiController extends ApiController
         $user->password = bcrypt($password);
         $user->role = 'user';
         $user->save();
+        $request->session()->put('user_id', $user->id);
         return $this->success(['message' => 'success']);
     }
 

@@ -21,7 +21,7 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/css/owner.css" rel="stylesheet"/>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    
+    <link href="/assets/css/toastr.min.css" rel="stylesheet">
 </head>
 <body>
     <div>
@@ -89,6 +89,7 @@
 <script src="/js/axios.min.js"></script>
 <link rel="stylesheet" href="https://rawgit.com/dbrekalo/fastselect/master/dist/fastselect.min.css">
 <script src="https://rawgit.com/dbrekalo/fastselect/master/dist/fastselect.standalone.min.js"></script>
+<script src="/assets/js/toastr.min.js"></script>
 
 @stack('scripts')
 <script>

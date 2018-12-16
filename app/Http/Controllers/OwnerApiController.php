@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Room;
 use App\Image;
 use App\HotelService;
+use App\RoomFeature;
 
 class OwnerApiController extends ApiController
 {
@@ -37,6 +38,23 @@ class OwnerApiController extends ApiController
         return $this->success(["message" => "successs"]);
     }
 
+    public function createRoom(Request $request)
+    {
+        $user = Auth::user();
+        $room = new Room();
+        $room->name = $request->name;
+        $room->price = $request->price;
+        $room->description = $request->description;
+        $room->images = $request->image_urls;
+        $room->hotel_id = $request->hotel_id;
+        $room->total = $request->total;
+        $room->save();
+        foreach ($request->features as $feature_id) {
+            $room->features()->attach($feature_id);
+        }
+        return $this->success(["message" => "success"]);
+    }
+
     public function editHotel($hotelId, Request $request)
     {
         $hotel = Hotel::find($hotelId);
@@ -63,16 +81,31 @@ class OwnerApiController extends ApiController
         return $this->success(["message" => "successs"]);
     }
 
-    public function createRoom($hotelId, Request $request)
+    public function editRoom($roomId, Request $request)
     {
-        if (!Hotel::find($hotelId))
-            return $this->badRequest(["message" => "Hotel id is invalid"]);
+        $room = Room::find($roomId);
         $room = new Room();
-        $room->hotel_id = $hotelId;
         $room->name = $request->name;
         $room->price = $request->price;
+        $room->description = $request->description;
+        $room->images = $request->image_urls;
+        $room->hotel_id = $request->hotel_id;
         $room->total = $request->total;
         $room->save();
+        foreach (RoomFeature::where('room_id', $room->id)->get() as $feature)
+            $feature->delete();
+        foreach ($request->features as $feature_id) {
+            $room->features()->attach($feature_id);
+        }
+        return $this->success(["message" => "success"]);
+    }
+
+    public function deleteRoom($roomId)
+    {
+        $room = Room::find($roomId);
+        foreach (RoomFeature::where('room_id', $room->id)->get() as $feature)
+            $feature->delete();
+        $room->delete();
         return $this->success(["message" => "success"]);
     }
 

@@ -33,12 +33,15 @@
 				<span class="navbar-toggler-bar"></span>
 			</button>
 			<!-- <a class="navbar-brand" href="/presentation.html">Paper Kit 2 Pro</a> -->
-			<img class="logo img-responsive" src="https://demo.qloapps.com/img/logo.jpg" alt="Qloapps Demo" width="243" height="61" />
+			<a href="/"><img class="logo img-responsive"  src="https://demo.qloapps.com/img/logo.jpg" alt="Qloapps Demo" width="243" height="61" /></a>
 			<div class="collapse navbar-collapse">
 				<ul class="navbar-nav ml-auto">
 					@if($user == null)
 					<li class="nav-item">
 						<a class="nav-link" href="/login" data-scroll="true">Login</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/register" data-scroll="true">Register</a>
 					</li>
 					@else
 					<li class="nav-item">

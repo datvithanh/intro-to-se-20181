@@ -5,7 +5,7 @@
         <div class="table-wrapper">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-8"><h2>Tạo khách sạn</h2></div>
+                        <div class="col-md-8"><h2>Khách sạn {{$name}}</h2></div>
                     </div>
                 </div>
                 <div class="card-body" style="padding-bottom: 0px">
@@ -56,8 +56,7 @@
                         </div>
                         <div id="alert-modal" style="font-size: 14px"></div>
 
-                        <button class="btn btn-success" style="width: 100%; margin: 10px; padding: 15px;" id="submit-modal">Đăng
-                            kí
+                        <button class="btn btn-success" style="width: 100%; margin: 10px; padding: 15px;" id="submit-modal">Lưu
                         </button>
                     </div>
                 </div>
@@ -115,13 +114,11 @@
                 if (name.trim() == "" || address.trim() == "" || description.trim() == "") ok = 1;
 
                 if (!name || !address || !description || ok == 1) {
-                    $("#alert-modal").html(
-                        "<div class='alert alert-danger'>Vui lòng nhập đủ thông tin</div>"
-                    );
+                    toastr.error("Vui lòng nhập đủ thông tin");
                     return;
                 }
                 var message = "Sửa khách sạn thành công";
-                $("#alert-modal").html("<div class='alert alert-success'>" + message + "</div>");
+                toastr.success("Sửa khách sạn thành công");
                 $("#submit-modal").css("display", "none");
                 var image_urls = [];
                 var eles = $('#image-table tr th img');
