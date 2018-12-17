@@ -41,6 +41,9 @@
         </div>
     </div>
 </div>
+@endsection 
+ 
+
 @push('scripts')
 <script>
     $("#login-btn").click(function(event){
@@ -55,11 +58,14 @@
             'email': email,
             'password': password
         };
+        
+        let path = "{{$path}}";
         axios.post("/api/login", data)
             .then(function (response) {
-                console.log(response);
-                let status = response.status;
-                window.location = "/";
+                let status = response.status;e
+                if(path == "/login")
+                    window.location = "/";
+                window.location = path + "?start=" +start + "&end=" + end;
             })
             .catch(function (error) {
                 toastr.error(error.response.data.message);
@@ -67,5 +73,3 @@
     });
 </script>
 @endpush
-@endsection 
- 

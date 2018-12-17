@@ -15,6 +15,6 @@ class Booking extends Model
 
     public function hotel()
     {
-        return $this->belongsTo(Hotel::class, 'hotel_id');
+        return $this->belongsTo(Room::class, 'room_id');
     }
 }

@@ -33,11 +33,10 @@
                                     <td width="15%">
                                         <a href="/hotel/{{$hotel['id']}}" class="add" title="Thông tin chi tiết" data-toggle="tooltip"><i class="material-icons">&#xe3c8;</i></a>
                                         &nbsp;
-                                        <a class="format_list_bulleted" title="Danh sách đặt phòng" data-toggle="tooltip"><i class="material-icons">&#xe241;</i></a>
+                                        <a href="/hotel/{{$hotel['id']}}/booking" class="format_list_bulleted" title="Danh sách đặt phòng" data-toggle="tooltip"><i class="material-icons">&#xe241;</i></a>
                                         &nbsp;
                                         <a href="/hotel/{{$hotel['id']}}/edit" class="edit" title="Sửa" data-toggle="tooltip"><i class="material-icons" style="color:#FFC107">&#xE254;</i></a>
                                         &nbsp;
-                                        <a class="delete" title="Xoá" data-toggle="tooltip"><i class="material-icons" style="color:#E34724">&#xE872;</i></a>
                                     </td>
                                 </tr>
                             @endforeach

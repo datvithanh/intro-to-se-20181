@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use App\Hotel;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use App\Booking;
+use App\Rate;
 
 class ClientApiController extends ApiController
 {
 
     public function __construct(Request $request)
     {
-        // $this->user_id = $request->session()->get('user_id');
     }
 
     public function register(Request $request)
@@ -61,11 +62,33 @@ class ClientApiController extends ApiController
         return $this->success(['message' => "success"]);
     }
 
-    //axios.get('/api/test').then(function(response){console.log(response)}).catch(function(){})
+    public function booking($roomId, Request $request)
+    {
+        $user_id = $request->session()->get('user_id');
+        $start = $request->start;
+        $end = $request->end;
+        $booking = new Booking();
+        $booking->user_id = $user_id;
+        $booking->start = $start;
+        $booking->finish = $end;
+        $booking->room_id = $roomId;
+        $booking->save();
+        return $this->success(["message" => "Đặt phòng thành công"]);
+    }
+
+    public function rate($hotelId, Request $request)
+    {
+        $rate = new Rate();
+        $rate->hotel_id = $hotelId;
+        $rate->user_id = $request->session()->get('user_id');
+        $rate->stars = $request->stars;
+        $rate->content = $request->content;
+        $rate->save();
+        return $this->success(['message' => 'success']);
+    }
 
     public function test(Request $request)
     {
-        // dd($request->session()->get('user_id'));
         return ['data' => $request->session()->get('user_id')];
     }
 }

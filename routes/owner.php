@@ -11,3 +11,4 @@ Route::get('/room/create', 'HomeController@createRoom');
 Route::get('/hotel/{hotelId}', 'HomeController@hotel');
 Route::get('/hotel/{hotelId}/edit', 'HomeController@editHotel');
 Route::get('/room/{roomId}/edit', 'HomeController@editRoom');
+Route::get('/hotel/{hotelId}/booking', 'HomeController@hotelBooking');

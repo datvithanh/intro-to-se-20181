@@ -10,6 +10,8 @@ use App\Service;
 use App\HotelService;
 use App\RoomFeature;
 use App\Room;
+use App\Booking;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -77,6 +79,31 @@ class HomeController extends Controller
         });
         $data['hotel_id'] = $request->hotel_id;
         return view('create-room', $data);
+    }
+
+    public function hotelBooking($hotelId, Request $request)
+    {
+        $hotel = Hotel::find($hotelId);
+        $data['hotel'] = $hotel;
+        $roomIds = $hotel->rooms()->pluck('id')->toArray();
+        $bookings = Booking::join('users', 'bookings.user_id', '=', 'users.id')
+            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
+            ->where('rooms.hotel_id', $hotelId)
+            ->select(DB::raw('bookings.*,users.name as user_name,rooms.name as room_name, rooms.images as images, rooms.price as price'))->get();
+        $data['bookings'] = $bookings->map(function($booking){
+            return [
+                'id' => $booking->id,
+                'user_id' => $booking->user_id,
+                'start' => $booking->start,
+                'finish' => $booking->finish,
+                'price' => $booking->price,
+                'room_name' => $booking->room_name,
+                'user_name' => $booking->user_name,
+                'created_at' => date_format($booking->created_at, 'i:H d-m-Y'),
+            ];
+        });
+        
+        return view('hotel-booking', $data);
     }
 
     public function editHotel($hotelId)

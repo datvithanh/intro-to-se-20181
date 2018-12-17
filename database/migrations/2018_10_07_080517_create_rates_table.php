@@ -18,7 +18,7 @@ class CreateRatesTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->integer('hotel_id')->unsigned()->index();
             $table->text('content')->default('');
-            $table->integer('start')->default('1');
+            $table->integer('stars')->default('1');
             $table->timestamps();
         });
     }

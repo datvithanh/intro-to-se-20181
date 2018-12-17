@@ -10,7 +10,7 @@ class Hotel extends Model
 
     public function bookings()
     {
-        return $this->hasMany(Booking::class, 'hotel_id');
+        return $this->hasManyThrough(Booking::class, Room::class)->withPivot('name');
     }
 
     public function modifiers()
@@ -31,5 +31,10 @@ class Hotel extends Model
     public function images()
     {
         return $this->hasMany(Image::class, 'hotel_id');
+    }
+
+    public function rates()
+    {
+        return $this->hasMany(Rate::class, 'hotel_id');
     }
 }

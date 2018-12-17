@@ -115,7 +115,7 @@ class OwnerApiController extends ApiController
         foreach (json_decode($request->image_names) as $name) {
             $newImageName = time() . $name;
             shell_exec('/var/www/mvimg ' . $name . ' ' . $newImageName);
-            array_push($urls, "http://mywebsite.test/images/" . $newImageName);
+            array_push($urls, "/" . "images" . "/" . $newImageName);
         }
         return $this->success(["urls" => $urls]);
     }

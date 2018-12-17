@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width" />
 
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/assets/css/paper-kit.css" rel="stylesheet"/>
+    <!-- <link href="/assets/css/paper-kit.css" rel="stylesheet"/> -->
     <link href="/assets/css/demo.css" rel="stylesheet" />
 
     <!--     Fonts and icons     -->
@@ -19,9 +19,8 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="/assets/css/nucleo-icons.css" rel="stylesheet">
     <link href="/assets/css/dp.css" rel="stylesheet">
-    <link href="/assets/css/main.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
 	<link href="/assets/css/toastr.min.css" rel="stylesheet">
-
 </head>
 <body class="blog-page">
 <!--         default navbar with notifications     -->
@@ -32,33 +31,31 @@
 				<span class="navbar-toggler-bar"></span>
 				<span class="navbar-toggler-bar"></span>
 			</button>
-			<!-- <a class="navbar-brand" href="/presentation.html">Paper Kit 2 Pro</a> -->
 			<a href="/"><img class="logo img-responsive"  src="https://demo.qloapps.com/img/logo.jpg" alt="Qloapps Demo" width="243" height="61" /></a>
 			<div class="collapse navbar-collapse">
 				<ul class="navbar-nav ml-auto">
 					@if($user == null)
 					<li class="nav-item">
-						<a class="nav-link" href="/login" data-scroll="true">Login</a>
+						<a class="nav-link" href="javascript:toLogin()" data-scroll="true">Login</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/register" data-scroll="true">Register</a>
+						<a class="nav-link" href="javascript:toRegister()" data-scroll="true">Register</a>
 					</li>
 					@else
 					<li class="nav-item">
 						<a class="nav-link" href="javascript:void(0)" data-scroll="true">{{$user->name}}</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="javascript:void(0)" data-scroll="true" id="logout-btn">logout</a>
+						<a class="nav-link" href="javascript:void(0)" data-scroll="true" id="logout-btn">Logout</a>
 					</li>
 					@endif
-					<!-- <li class="nav-item">
-						<a class="btn btn-round btn-danger" href="https://www.creative-tim.com/product/paper-kit-2-pro"><i class="fa fa-shopping-cart"></i></a>
-					</li> -->
 				</ul>
 			</div>
 		</div>
-    </nav>
-    @yield('content')
+	</nav>
+	<div class="main-content">
+		@yield('content')
+	</div>
     <footer>
     </footer>
 </body>
@@ -68,21 +65,30 @@
 <script src="/assets/js/jquery-ui-1.12.1.custom.min.js" type="text/javascript"></script>
 <script src="/assets/js/tether.min.js" type="text/javascript"></script>
 <script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="/assets/js/paper-kit.js?v=2.0.0"></script>
+<!-- <script src="/assets/js/paper-kit.js?v=2.0.0"></script> -->
 <script src="/assets/js/hotel-datepicker.min.js"></script>
 <script src="/assets/js/fecha.min.js"></script>
 <script src="/js/axios.min.js"></script>
 <script src="/assets/js/toastr.min.js"></script>
-@stack('scripts')
-<script> 
+<script>
+	let start = "{{$start}}";
+	let end = "{{$end}}";
+	var isLogin = "{{is_null($user)}}";
+	function toLogin() {
+		window.location = '/login?path=' + window.location.pathname + "&start=" + start+ "&end=" + end;
+	}
+	function toRegister() {
+		window.location = '/register?path=' + window.location.pathname + "&start=" + start + "&end=" + end;
+	}
 	$("#logout-btn").click(function(){
-		axios.put('/api/logout')
+		axios.put('/api/logout?path='+window.location.href)
 			.then(function(){
 
 			}).catch(function(){
 
 			});
-		window.location = "/";
+			window.location = window.location.pathname + "?start=" +start + "&end=" + end;
 	});
 </script>
+@stack('scripts')
 </html>

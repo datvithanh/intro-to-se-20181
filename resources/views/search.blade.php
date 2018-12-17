@@ -1,43 +1,70 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="page-header" data-parallax="true" style="background-image: url('/assets/img/uriel-soberanes.jpg')" style="position:fixed">
-    <div class="content-center" style="top:20%; margin-top:150px">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    @foreach($hotels as $hotel)
-                    <div class="card card-raised card-form-horizontal no-transition">
-                        <div class="card-block">
-                            <form method="" action="">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <img src="{{$hotel['avatar']}}">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <h3 class="title" style="color: #333333">
-                                            {{$hotel['name']}}
-                                        </h3>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" value="" placeholder="Date" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <button type="button" class="btn btn-danger btn-block"><i class="nc-icon nc-zoom-split"></i>
-                                            &nbsp; {{$hotel['name']}}
-                                        </button></div>
-                                </div>
-                            </form>
+<div class="background-image"></div>
+<div class="container" style="margin-top: 85px">
+    <div class="row">
+        <div class="col-md-12">
+            @foreach($hotels as $hotel)
+            <div class="card card-raised card-form-horizontal no-transition mb-2">
+                <div class="card-block">
+                    <form method="" action="">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="{{$hotel['avatar']}}">
+                            </div>
+                            <div class="col-md-3">
+                                <h5 class="title" style="color: #333333">
+                                    <p>Name: {{$hotel['name']}}. </p>
+                                    <p>Price range: {{$hotel['price_min']}} - {{$hotel['price_max']}}.</p>
+                                    <p>Total: {{$hotel['total']}}.</p>
+                                    <span class="rating-content" title="{{$hotel['stars']}}">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <span style="width: {{$hotel['stars']/5*100}}%;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </span>
+                                    </span>
+                                </h5>
+                            </div>
+                            <div class="col-md-3">
+                                <h5 class="title" style="color: #333333">
+                                    <p>
+                                        Services:
+                                    </p>
+                                @foreach($hotel['services'] as $service)
+                                    <p>
+                                        &bull; {{$service['name']}}
+                                    </p>
+                                @endforeach
+                                </h5>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" onclick="hotelRoom({{$hotel['id']}})" class="btn btn-danger btn-block">
+                                    <i class="nc-icon nc-zoom-split"></i>
+                                    &nbsp; Xem phòng
+                                </button></div>
                         </div>
-                    </div>
-                    @endforeach
+                    </form>
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
 </div>
-@push('scripts')
-@endpush
 @endsection
+
+@push('scripts')
+<script>
+    function hotelRoom(hotelId) {
+        window.location = '/hotel/' + hotelId + "?start=" + "{{$start}}" + "&end=" + "{{$end}}";
+    }
+</script>
+@endpush

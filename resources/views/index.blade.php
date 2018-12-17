@@ -1,47 +1,28 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="page-header" data-parallax="true" style="background-image: url('/assets/img/uriel-soberanes.jpg')">
-    <div class="page">
-		
-    <div class="content-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10 offset-md-1">
-                    <div class="card card-raised card-form-horizontal no-transition">
-                        <div class="card-block">
-                            <form method="" action="">
-                                <div class="row">
-                                    <!-- <button class="btn btn-default" id="search-button"> Submit </button> -->
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <input style="padding:10px; width: 250px" placeholder="Chọn ngày" type="text" id="input-id" value="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <input style="padding:10px; width: 250px" placeholder="Địa điểm" type="text" id="" value="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button id="search-button" type="button" class="btn btn-danger btn-block"><i class="nc-icon nc-zoom-split"></i>
-                                            &nbsp; Search
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="background-image"></div>
+<div class="page">
+    <div class="card card-raised card-form-horizontal no-transition">
+        <div class="card-block">
+            <form method="" action="" style="display: flex">
+                <!-- <button class="btn btn-default" id="search-button"> Submit </button> -->
+                <input style="padding:10px;flex:2" placeholder="Chọn ngày" type="text" id="input-id" value="">
+                <input style="padding:10px;flex:2" class="mx-1" placeholder="Địa điểm" type="text" id="" value="">
+                <button style="flex:1" id="search-button" type="button" class="btn btn-success btn-block">
+                    <i class="nc-icon nc-zoom-split"></i>&nbsp;Search
+                </button>
+            </form>
         </div>
     </div>
 </div>
+
+@endsection
 @push('scripts')
 <script>
     var input = document.getElementById('input-id');
     var datepicker = new HotelDatepicker(input, {
-        format: 'DD-MM-YYYY'
+        format: 'YYYY-MM-DD'
     });
 	
     $('#search-button').click(function(){
@@ -50,8 +31,7 @@
             toastr.error("Please pick the date");
             return;
         }
-        window.location = "/search?date=" + date;
+        window.location = "/search?start=" + date.substr(0,10) + "&end=" + date.substr(13,21);
 	});
 </script>
 @endpush
-@endsection

@@ -1,0 +1,122 @@
+.page {
+	box-sizing: border-box;
+	padding: 2em;
+	margin-top: 15%;
+}
+
+@media (min-width: 600px) {
+	.page {
+		padding: 3em 2em;
+	}
+}
+
+@media (min-width: 800px) {
+	.page {
+		padding: 4em 2em;
+		width: 800px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+.main-content {
+	width: 100vw;
+	height: 100vh;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.background-image {
+	background-image: url('/assets/img/uriel-soberanes.jpg');
+	width: 100vw;
+	height: 100vh;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+a, a:hover, a:visited {
+	color: #fff;
+}
+
+button {
+	cursor: pointer;
+}
+
+.row img {
+  width: 100%;
+  height: auto;
+}
+
+.nc-icon {
+	vertical-align: text-bottom;
+}
+
+
+
+
+/* rating */
+.rating-content {
+	position: relative;
+	white-space: nowrap;
+	display: inline-block;
+	cursor: default;
+}
+
+.rating-content .fa-star {
+	display: inline-block;
+	color: #ddd;
+	text-rendering: auto;
+}
+
+.rating-content span {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 1;
+	overflow: hidden;
+}
+
+.rating-content span .fa-star {
+	color: orange;
+}
+
+
+.rating-group {
+	display: inline-flex;
+}
+/* hide radio inputs */
+.rating__input {
+ position: absolute !important;
+ left: -9999px !important;
+}
+/* hide 'none' input from screenreaders */
+.rating__input--none {
+	display: none
+}
+/* set icon padding and size */
+.rating__label {
+	cursor: pointer;
+	padding: 0 0.1em;
+	font-size: 2rem;
+}
+/* set default star color */
+.rating__icon--star {
+	color: orange;
+}
+/* if any input is checked, make its following siblings grey */
+.rating__input:checked ~ .rating__label .rating__icon--star {
+	color: #ddd;
+}
+/* make all stars orange on rating group hover */
+.rating-group:hover .rating__label .rating__icon--star {
+	color: orange;
+}
+/* make hovered input's following siblings grey on hover */
+.rating__input:hover ~ .rating__label .rating__icon--star {
+	color: #ddd;
+}
