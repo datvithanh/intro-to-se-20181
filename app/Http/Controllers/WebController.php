@@ -133,7 +133,7 @@ class WebController extends Controller
         $user = $this->data['user'];
         if($user == null)
             return $this->index($request);
-        $bookings = $user->bookings;
+        $bookings = $user->bookings()->orderBy('start', 'desc')->get();
         $this->data['bookings'] = $bookings->map(function($booking){
             $room = Room::find($booking->room_id);
             return [
@@ -142,7 +142,8 @@ class WebController extends Controller
                 'room_name' => $room->name,
                 'start' => $booking->start,
                 'finish' => $booking->finish,
-                'image_url' => json_decode($room->images)[0]
+                'done' => strtotime(date('Y-m-d')) >= strtotime($booking->finish),
+                'image_url' => count(json_decode($room->images)) == 0 ? 'https://www.rd.com/wp-content/uploads/2017/11/Here%E2%80%99s-What-You-Can-and-Can%E2%80%99t-Steal-from-Your-Hotel-Room_363678794-Elnur-760x506.jpg' : json_decode($room->images)[0],
             ];
         }); 
         return view('profile', $this->data);

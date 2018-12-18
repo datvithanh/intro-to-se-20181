@@ -17,6 +17,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th> Id </th>
                                 <th> Tên </th>
                                 <th> Địa chỉ</th>
                                 <th> Mô tả</th>
@@ -26,6 +27,7 @@
                         <tbody>
                             @foreach($hotels as $hotel)
                                 <tr>
+                                    <th><img src="{{$hotel['avatar']}}" style="width: 100px; height: auto"></th>
                                     <td> {{$hotel['id']}}</td>
                                     <td> {{$hotel['name']}} </td>
                                     <td> {{$hotel['address']}} </td>

@@ -22,6 +22,7 @@
                             <tr>
                                 <th>#</th>
                                 <th> Tên người đặt</th>
+                                <th> Email </th>
                                 <th> Loại phòng</th>
                                 <th> Giá</th>
                                 <th> Ngày checkin</th>
@@ -31,15 +32,29 @@
                         </thead>
                         <tbody>
                             @foreach($bookings as $booking)
-                            <tr>
-                                <th>{{$booking['id']}}</th>
-                                <th>{{$booking['user_name']}}</th>
-                                <th>{{$booking['room_name']}}</th>
-                                <th>{{$booking['price']}}</th>
-                                <th>{{$booking['start']}}</th>
-                                <th>{{$booking['finish']}}</th>
-                                <th>{{$booking['created_at']}}</th>
-                            </tr>
+                                @if($booking['done'] == true)
+                                <tr style="background-color: #EAFAF1">
+                                    <th>{{$booking['id']}}</th>
+                                    <th>{{$booking['user_name']}}</th>
+                                    <th>{{$booking['user_email']}}</th>
+                                    <th>{{$booking['room_name']}}</th>
+                                    <th>{{$booking['price']}}</th>
+                                    <th>{{$booking['start']}}</th>
+                                    <th>{{$booking['finish']}}</th>
+                                    <th>{{$booking['created_at']}}</th>
+                                </tr>
+                                @else
+                                <tr>
+                                    <th>{{$booking['id']}}</th>
+                                    <th>{{$booking['user_name']}}</th>
+                                    <th>{{$booking['user_email']}}</th>
+                                    <th>{{$booking['room_name']}}</th>
+                                    <th>{{$booking['price']}}</th>
+                                    <th>{{$booking['start']}}</th>
+                                    <th>{{$booking['finish']}}</th>
+                                    <th>{{$booking['created_at']}}</th>
+                                </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

@@ -20,6 +20,29 @@
                                         <hr style="width: 30%">
                                         <div class="col-md-12">
                                         @foreach($bookings as $booking) 
+                                        @if($booking['done'] == true)
+                                        <div class="row" style="background-color: #EAFAF1">
+                                            <div class="col-md-3">
+                                                <img src="{{$booking['image_url']}}" style="width: 100px; border-radius:5%"/>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <span>
+                                                    <h5>{{$booking['hotel_name']}}</h5>
+                                                </span>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <span>
+                                                    <h6>{{$booking['room_name']}}</h6>
+                                                </span>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <span>
+                                                    <h6>{{$booking['start']}}</h6>
+                                                    <h6>{{$booking['finish']}}</h6>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        @else
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <img src="{{$booking['image_url']}}" style="width: 100px; border-radius:5%"/>
@@ -41,6 +64,7 @@
                                                 </span>
                                             </div>
                                         </div>
+                                        @endif
                                         <hr style="width: 30%">
                                         @endforeach
                                         </div>

@@ -3,19 +3,16 @@
 @section('content')
 <div class="background-image"></div>
 <div class="container" style="margin-top: 85px">
-    <div class="card card-raised card-form-horizontal no-transition mb-2">
+    <!-- <div class="card card-raised card-form-horizontal no-transition mb-2">
         <div class="card-block">
-            <!-- <div class="row">
+            <div class="row">
                 <div class="col-md-3">
                     <h3>
-                        Sắp
+                        Sắp xếp:
                     </h3>
                 </div>
-            </div> -->
+            </div>
             <div class="row">
-                <h5>
-                    Sắp xếp:
-                </h5>
                 <div class="col-md-3">
                     <select class="mx-1 form-control" id="location-id">
                         <option value="1">Éc</option>
@@ -27,7 +24,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="row">
         <div class="col-md-12">
             @foreach($hotels as $hotel)

@@ -5,8 +5,24 @@
         <div class="table-wrapper">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-12"><h2>Khách sạn: {{$hotel['name']}}</h2></div>
+                        <div class="col-md-12">
+                            <h2>Khách sạn: {{$hotel['name']}}</h2>
+                            <h2>Địa chỉ: {{$hotel['address']}}</h2>
+                            <h2>Mô tả: {{$hotel['description']}}</h2>
+                            <hr width="50%">
+                            <h2>Hình ảnh</h2>
+                            <div style="display:flex; flex-wrap:wrap;">
+                            @foreach($hotel['images'] as $image) 
+                                <div style="width: 25%">
+                                    <img src="{{$image->url}}" style="width: 250px; height: auto">
+                                </div>
+                            @endforeach
+                            </div>
+                            <hr width="50%">
+
+                        </div>
                         
+
                     </div>
                 </div>
                 
@@ -26,21 +42,21 @@
                                 <th>#</th>
                                 <th> Tên </th>
                                 <th> Giá</th>
-                                <th> Mô tả</th>
+                                <th> Số lượng</th>
                                 <th> Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($rooms as $room)
                             <tr>
-                                <th>{{$room['id']}}</th>
+                                <th><img src="{{$room['avatar']}}" style="width:100px; height:auto"></th>
                                 <th>{{$room['name']}}</th>
                                 <th>{{$room['price']}}</th>
                                 <th>{{$room['total']}}</th>
                                 <td width="15%">
                                         <a href="/room/{{$room['id']}}/edit" class="edit" title="Sửa" data-toggle="tooltip"><i class="material-icons" style="color:#FFC107">&#xE254;</i></a>
                                         &nbsp;
-                                        <a class="delete" href="javascript:deleteRoom({{$room['id']}})" title="Xoá" data-toggle="tooltip"><i class="material-icons" style="color:#E34724">&#xE872;</i></a>
+                                        <!-- <a class="delete" href="javascript:deleteRoom({{$room['id']}})" title="Xoá" data-toggle="tooltip"><i class="material-icons" style="color:#E34724">&#xE872;</i></a> -->
                                 </td>
                             </tr>
                             @endforeach
