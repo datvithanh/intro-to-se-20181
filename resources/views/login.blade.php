@@ -62,12 +62,14 @@
         let path = "{{$path}}";
         axios.post("/api/login", data)
             .then(function (response) {
-                let status = response.status;e
+                let status = response.status;
+                toastr.success('Đăng nhập thành công');
                 if(path == "/login")
                     window.location = "/";
                 window.location = path + "?start=" +start + "&end=" + end;
             })
             .catch(function (error) {
+                console.log(error);
                 toastr.error(error.response.data.message);
             });
     });

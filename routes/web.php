@@ -11,3 +11,5 @@ Route::get('/search', 'WebController@search');
 Route::get('/hotel/{hotelId}', 'WebController@hotelRoom');
 
 Route::get('/booking/{roomId}', 'WebController@booking');
+
+Route::get('/profile', 'WebController@profile');

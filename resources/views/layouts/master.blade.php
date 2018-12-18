@@ -43,7 +43,7 @@
 					</li>
 					@else
 					<li class="nav-item">
-						<a class="nav-link" href="javascript:void(0)" data-scroll="true">{{$user->name}}</a>
+						<a class="nav-link" href="/profile" data-scroll="true">{{$user->name}}</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="javascript:void(0)" data-scroll="true" id="logout-btn">Logout</a>

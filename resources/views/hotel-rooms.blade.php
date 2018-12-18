@@ -28,7 +28,7 @@
                                         </p>
                                     @foreach($room['features'] as $feature)
                                         <p>
-                                            -{{$feature['name']}}
+                                            &bull; {{$feature['name']}}
                                         </p>
                                     @endforeach
                                     </h5>
@@ -64,13 +64,13 @@
                                                 Features:
                                             </p>
                                         </h6>
-                                        <hr>
-                                        <h5>Thông tin cá nhân: </h5>
                                         
                                         <hr>
                                         <h4>Đánh giá:</h4>
 
                                         <div class="col-md-12">
+                                        <hr style="width: 30%">
+
                                         @foreach($rates as $rate) 
                                         <div class="row">
                                             <div class="col-md-4">
@@ -90,20 +90,27 @@
                                                     </span>
                                                 </span>
                                             </div>
-                                            <div class="col-md-6" style="white-space:normal; overflow: hidden">
+                                            <div class="col-md-6">
                                                 <span>
                                                     <h5>{{$rate['name']}}</h5>
                                                     <h6>{{$rate['content']}}</h6>
                                                 </span>
                                             </div>
-                                            <hr style="width: 30%">
                                         </div>
+                                        <hr style="width: 30%">
+
                                         @endforeach
                                         </div>
                                 </div>
+                                @if($isRated == true)
+                                <div style="text-align:center; width: 100%">
+                                    <button class="btn btn-default" disabled>Bạn đã đánh giá khách sạn này</button>
+                                </div>
+                                @else
                                 <div style="text-align:center; width: 100%">
                                     <button class="btn btn-primary" id="rate-btn">Đánh giá</button>
                                 </div>
+                                @endif
                             </form>
                         </div>
                     </div>

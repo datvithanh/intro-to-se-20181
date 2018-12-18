@@ -32,4 +32,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Hotel::class, 'hotel_modifier', 'user_id', 'hotel_id');
     }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'user_id');
+    }
 }
