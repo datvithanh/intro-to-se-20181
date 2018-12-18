@@ -8,6 +8,11 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use App\Booking;
 use App\Rate;
+use Illuminate\Support\Facades\DB;
+use App\HotelService;
+use App\Image;
+use App\Room;
+use App\RoomFeature;
 
 class ClientApiController extends ApiController
 {
@@ -49,7 +54,8 @@ class ClientApiController extends ApiController
             return $this->badRequest(['message' => 'email does not exist']);
         if (!Hash::check($password, $user->password))
             return $this->badRequest(['message' => 'incorrect password']);
-
+        if ($user->role == "Owner")
+            return $this->badRequest(['message' => 'Owner backk ooffff']);
         $request->session()->put('user_id', $user->id);
         return $this->success(['message' => 'success']);
             // return ['aksdk' => 'asdkkad'];
@@ -89,6 +95,32 @@ class ClientApiController extends ApiController
 
     public function test(Request $request)
     {
-        return ['data' => $request->session()->get('user_id')];
+        // $i = 1;
+        // while ($i <= 500) {
+        //     $hotel = Hotel::find($i);
+        //     // dd($hotel->rooms);
+        //     foreach ($hotel->rooms as $room) {
+        //         $num_bookings = random_int(10, 25);
+        //         $dates = [];
+        //         while (count($dates) < $num_bookings) {
+        //             $x = random_int(1540425600,1551052800);
+        //             if(!in_array($x, $dates))
+        //                 array_push($dates, $x);
+        //         }
+
+        //         foreach($dates as $date){
+        //             $x = random_int(1, 7);
+        //             $start = date('Y-m-d', $date);
+        //             $finish = date('Y-m-d', strtotime($start . '+ ' . $x . ' days'));
+        //             $booking = new Booking();
+        //             $booking->start = $start;
+        //             $booking->finish = $finish;
+        //             $booking->room_id = $room->id;
+        //             $booking->user_id = random_int(101,500);
+        //             $booking->save();
+        //         }
+        //     }
+        //     ++$i;
+        // }
     }
 }

@@ -13,9 +13,6 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8"><h2>Danh sách đặt phòng</h2></div>
-                        <div class="col-md-4">
-                            <a class="btn btn-success" href='/room/create?hotel_id={{$hotel["id"]}}' style="float:right;">+ Tạo phòng</a>
-                        </div>
                     </div>
                 </div>
                 <div class="card-body">

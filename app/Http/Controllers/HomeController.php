@@ -123,7 +123,6 @@ class HomeController extends Controller
         $data['address'] = $hotel->address;
         $data['description'] = $hotel->description;
         $data['images'] = $hotel->images;
-        // dd($hotel->images);
         return view('edit-hotel', $data);
     }
 

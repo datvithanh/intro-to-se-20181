@@ -44,12 +44,15 @@ class WebController extends Controller
 
     public function search(Request $request)
     {
-        $hotels = Hotel::all();
+        if($request->location == null)
+            $request->location = 1;
+        $hotels = Hotel::where('longitude', $request->location)->get();
         $this->data['hotels'] = $hotels->map(function ($hotel) {
             $stars = $hotel->rates()->count();
             return [
                 'id' => $hotel->id,
                 'name' => $hotel->name,
+                'address' => $hotel->address,
                 'avatar' => $hotel->images()->first() ? $hotel->images()->first()->url : 'https://images.unsplash.com/photo-1492455417212-e162ed4446e1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e8bd81d8bc531873ab3af61d83ef0c19&auto=format&fit=crop&w=1950&q=80',
                 'price_min' => $hotel->rooms()->min('price'),
                 'price_max' => $hotel->rooms()->max('price'),
@@ -62,7 +65,6 @@ class WebController extends Controller
                 'stars' => $stars > 0 ? ceil(2 * ($hotel->rates()->sum('stars')) / $stars) / 2 : 5
             ];
         });
-        // dd($this->data['hotels']);
         return view('search', $this->data);
     }
 
@@ -83,6 +85,14 @@ class WebController extends Controller
                 })
             ];
         });
+        $this->data['hotel'] = [
+            'name' => $hotel->name,
+            'address' => $hotel->address,
+            'images' => $hotel->images,
+            'description' => $hotel->description,
+            'images' => $hotel->images,
+            'contact' => User::find(DB::table('hotel_modifier')->where('hotel_id', $hotel->id)->first()->user_id)->email
+        ];
 
         if ($this->data['user'] == null)
             $this->data['isRated'] = false;
@@ -121,6 +131,8 @@ class WebController extends Controller
     public function profile(Request $request)
     {
         $user = $this->data['user'];
+        if($user == null)
+            return $this->index($request);
         $bookings = $user->bookings;
         $this->data['bookings'] = $bookings->map(function($booking){
             $room = Room::find($booking->room_id);
@@ -129,7 +141,8 @@ class WebController extends Controller
                 'hotel_name' => $room->hotel->name, 
                 'room_name' => $room->name,
                 'start' => $booking->start,
-                'finish' => $booking->finish
+                'finish' => $booking->finish,
+                'image_url' => json_decode($room->images)[0]
             ];
         }); 
         return view('profile', $this->data);

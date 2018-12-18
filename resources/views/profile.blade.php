@@ -22,7 +22,7 @@
                                         @foreach($bookings as $booking) 
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <img src="http://farm9.staticflickr.com/8130/29541772703_6ed8b50c47_b.jpg" style="width: 100px; border-radius:5%"/>
+                                                <img src="{{$booking['image_url']}}" style="width: 100px; border-radius:5%"/>
                                             </div>
                                             <div class="col-md-3">
                                                 <span>

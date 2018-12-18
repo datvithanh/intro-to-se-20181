@@ -15,14 +15,14 @@
                                     <img src="{{$room['avatar']}}">
                                 </div>
                                 <div class="col-md-3">
-                                    <p class="title" style="color: #333333">
+                                    <h6 class="title" style="color: #333333">
                                         <p>Name: {{$room['name']}}. </p>
                                         <p>Price: {{$room['price']}}</p>
                                         <p>Total: {{$room['total']}}.</p>
-                                    </p>
+                                    </h6>
                                 </div>
                                 <div class="col-md-3">
-                                    <h5 class="title" style="color: #333333">
+                                    <h6 class="title" style="color: #333333">
                                         <p>
                                             Features:
                                         </p>
@@ -31,7 +31,7 @@
                                             &bull; {{$feature['name']}}
                                         </p>
                                     @endforeach
-                                    </h5>
+                                    </h6>
                                 </div>
                                 <div class="col-md-3">
                                     <button type="button" onclick="book({{$room['id']}})" class="btn btn-danger btn-block">
@@ -52,19 +52,19 @@
                             <form>
                                 <div class="row">
                                     <div class="col-md-12" style="margin-bottom:30px">
-                                        <h4>Bạn đang tiến hành đặt phòng:asdsad</h4>
-                                        <h4>Tại khách sạn: adssad</h4>
+                                        <h4>Hotel: {{$hotel['name']}}</h4>
+                                        <h4>Address: {{$hotel['address']}}</h4>
+                                        <h4>Description: {{$hotel['description']}}</h4>
+                                        <h4>Contact: {{$hotel['contact']}}</h4>
                                         <hr>
-                                        <h5>Vui lòng kiểm tra lại thông tin phòng trước khi xác nhận:</h5>
-                                        <h6>Ngày checkin: asdad</h6>
-                                        <h6>Ngày checkout: easd</h6>
-                                        <h6>Giá phòng: asdsda</h6>
-                                        <h6>
-                                            <p>
-                                                Features:
-                                            </p>
-                                        </h6>
-                                        
+                                        <div style="display:flex; flex-wrap:wrap;">
+                                            @foreach($hotel['images'] as $image) 
+                                                <div style="width: 25%">
+                                                    <img src="{{$image->url}}">
+                                                </div>
+                                            @endforeach
+                                        </div>
+
                                         <hr>
                                         <h4>Đánh giá:</h4>
 

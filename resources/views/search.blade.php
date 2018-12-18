@@ -3,6 +3,31 @@
 @section('content')
 <div class="background-image"></div>
 <div class="container" style="margin-top: 85px">
+    <div class="card card-raised card-form-horizontal no-transition mb-2">
+        <div class="card-block">
+            <!-- <div class="row">
+                <div class="col-md-3">
+                    <h3>
+                        Sắp
+                    </h3>
+                </div>
+            </div> -->
+            <div class="row">
+                <h5>
+                    Sắp xếp:
+                </h5>
+                <div class="col-md-3">
+                    <select class="mx-1 form-control" id="location-id">
+                        <option value="1">Éc</option>
+                        <option value="2">TPHCM</option>
+                        <option value="3">Hải Phòng</option>
+                        <option value="4">Đà Nẵng</option>
+                        <option value="5">Cần thơ</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             @foreach($hotels as $hotel)
@@ -14,10 +39,12 @@
                                 <img src="{{$hotel['avatar']}}">
                             </div>
                             <div class="col-md-3">
-                                <h5 class="title" style="color: #333333">
-                                    <p>Name: {{$hotel['name']}}. </p>
-                                    <p>Price range: {{$hotel['price_min']}} - {{$hotel['price_max']}}.</p>
-                                    <p>Total: {{$hotel['total']}}.</p>
+                                <h6 class="title" style="color: #333333">
+                                    <p>Name: {{$hotel['name']}}</p>
+                                    <p>Address: {{$hotel['address']}} </p>
+                                    <p>Price range: {{$hotel['price_min']}} - {{$hotel['price_max']}}</p>
+                                    <p>Total rooms: {{$hotel['total']}}</p>
+
                                     <span class="rating-content" title="{{$hotel['stars']}}">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -32,10 +59,10 @@
                                             <i class="fa fa-star"></i>
                                         </span>
                                     </span>
-                                </h5>
+                                </h6>
                             </div>
                             <div class="col-md-3">
-                                <h5 class="title" style="color: #333333">
+                                <h6 class="title" style="color: #333333">
                                     <p>
                                         Services:
                                     </p>
@@ -44,7 +71,7 @@
                                         &bull; {{$service['name']}}
                                     </p>
                                 @endforeach
-                                </h5>
+                                </h6>
                             </div>
                             <div class="col-md-3">
                                 <button type="button" onclick="hotelRoom({{$hotel['id']}})" class="btn btn-danger btn-block">
