@@ -95,32 +95,6 @@ class ClientApiController extends ApiController
 
     public function test(Request $request)
     {
-        // $i = 1;
-        // while ($i <= 500) {
-        //     $hotel = Hotel::find($i);
-        //     // dd($hotel->rooms);
-        //     foreach ($hotel->rooms as $room) {
-        //         $num_bookings = random_int(10, 25);
-        //         $dates = [];
-        //         while (count($dates) < $num_bookings) {
-        //             $x = random_int(1540425600,1551052800);
-        //             if(!in_array($x, $dates))
-        //                 array_push($dates, $x);
-        //         }
-
-        //         foreach($dates as $date){
-        //             $x = random_int(1, 7);
-        //             $start = date('Y-m-d', $date);
-        //             $finish = date('Y-m-d', strtotime($start . '+ ' . $x . ' days'));
-        //             $booking = new Booking();
-        //             $booking->start = $start;
-        //             $booking->finish = $finish;
-        //             $booking->room_id = $room->id;
-        //             $booking->user_id = random_int(101,500);
-        //             $booking->save();
-        //         }
-        //     }
-        //     ++$i;
-        // }
+        dd(Hotel::max('id'));
     }
 }

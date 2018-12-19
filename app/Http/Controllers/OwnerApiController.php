@@ -20,6 +20,7 @@ class OwnerApiController extends ApiController
     {
         $user = Auth::user();
         $hotel = new Hotel();
+        $hotel->id = Hotel::max('id') + 1;
         $hotel->name = $request->name;
         $hotel->address = $request->address;
         $hotel->description = $request->description;
@@ -42,6 +43,7 @@ class OwnerApiController extends ApiController
     {
         $user = Auth::user();
         $room = new Room();
+        $room->id = Room::max('id') + 1;
         $room->name = $request->name;
         $room->price = $request->price;
         $room->description = $request->description;
