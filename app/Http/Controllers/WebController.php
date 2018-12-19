@@ -44,9 +44,52 @@ class WebController extends Controller
 
     public function search(Request $request)
     {
-        if($request->location == null)
-            $request->location = 1;
-        $hotels = Hotel::where('longitude', $request->location)->get();
+        if ($request->location == null)
+            $request->location = 0;
+        if ($request->search == null)
+            $request->search = "";
+        if ($request->sort == null)
+            $request->sort = 0;
+
+        $hotels = Hotel::query();
+
+        if ($request->location)
+            $hotels = $hotels->where('hotels.longitude', $request->location);
+
+        if ($request->search != "")
+            $hotels = $hotels->where('hotels.name', 'ilike', "%" . $request->search . "%");
+
+        // if ($request->sort != 0) {
+        //     if($request->sort == 1)
+        //         $hotels = $hotels->leftJoin('rooms', 'rooms.hotel_id', '=', 'hotels.id')->groupBy('hotels.id')
+        //             ->orderByRaw('min(rooms.price) desc');
+        //     if($request->sort == 2)
+        //         $hotels = $hotels->leftJoin('rooms', 'rooms.hotel_id', '=', 'hotels.id')->groupBy('hotels.id')
+        //             ->orderByRaw('min(rooms.price) asc');
+        // }
+
+        $hotels = $hotels->get();
+        if ($request->sort != 0) {
+            if ($request->sort == 1) {
+                $hotels = $hotels->sortBy(function ($hotel) {
+                    return $hotel->rooms()->min('price');
+                });
+                $hotels = $hotels->reverse();
+            }
+            if ($request->sort == 2) {
+                $hotels = $hotels->sortBy(function ($hotel) {
+                    return $hotel->rooms()->min('price');
+                });
+            }
+            if ($request->sort == 3) {
+                $hotels = $hotels->sortBy(function ($hotel) {
+                    $stars = $hotel->rates()->count();
+                    return $stars > 0 ? ceil(2 * ($hotel->rates()->sum('stars')) / $stars) / 2 : 5;
+                });
+                $hotels = $hotels->reverse();
+            }
+
+        }
         $this->data['hotels'] = $hotels->map(function ($hotel) {
             $stars = $hotel->rates()->count();
             return [
@@ -65,6 +108,9 @@ class WebController extends Controller
                 'stars' => $stars > 0 ? ceil(2 * ($hotel->rates()->sum('stars')) / $stars) / 2 : 5
             ];
         });
+        $this->data['location'] = $request->location;
+        $this->data['sort'] = $request->sort;
+        $this->data['search'] = $request->search;
         return view('search', $this->data);
     }
 
@@ -131,21 +177,21 @@ class WebController extends Controller
     public function profile(Request $request)
     {
         $user = $this->data['user'];
-        if($user == null)
+        if ($user == null)
             return $this->index($request);
         $bookings = $user->bookings()->orderBy('start', 'desc')->get();
-        $this->data['bookings'] = $bookings->map(function($booking){
+        $this->data['bookings'] = $bookings->map(function ($booking) {
             $room = Room::find($booking->room_id);
             return [
                 'id' => $booking->id,
-                'hotel_name' => $room->hotel->name, 
+                'hotel_name' => $room->hotel->name,
                 'room_name' => $room->name,
                 'start' => $booking->start,
                 'finish' => $booking->finish,
                 'done' => strtotime(date('Y-m-d')) >= strtotime($booking->finish),
                 'image_url' => count(json_decode($room->images)) == 0 ? 'https://www.rd.com/wp-content/uploads/2017/11/Here%E2%80%99s-What-You-Can-and-Can%E2%80%99t-Steal-from-Your-Hotel-Room_363678794-Elnur-760x506.jpg' : json_decode($room->images)[0],
             ];
-        }); 
+        });
         return view('profile', $this->data);
     }
 

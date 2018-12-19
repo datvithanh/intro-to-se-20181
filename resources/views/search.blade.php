@@ -3,28 +3,95 @@
 @section('content')
 <div class="background-image"></div>
 <div class="container" style="margin-top: 85px">
-    <!-- <div class="card card-raised card-form-horizontal no-transition mb-2">
+    <div class="card card-raised card-form-horizontal no-transition mb-2">
         <div class="card-block">
             <div class="row">
                 <div class="col-md-3">
-                    <h3>
-                        Sắp xếp:
-                    </h3>
+                    <h4>
+                        Search for hotel name:
+                    </h4>
+                </div>
+                <div class="col-md-3">
+                    <h4>
+                        Sort:
+                    </h4>
+                </div>
+                <div class="col-md-3">
+                    <h4>
+                        Location:
+                    </h4>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    <select class="mx-1 form-control" id="location-id">
-                        <option value="1">Éc</option>
-                        <option value="2">TPHCM</option>
-                        <option value="3">Hải Phòng</option>
-                        <option value="4">Đà Nẵng</option>
-                        <option value="5">Cần thơ</option>
+                    <input class="form-control" placeholder="Tên khách sạn" type="text" id="filter-search" value="{{$search}}">
+                </div>
+                <div class="col-md-3">
+                    <select class="mx-1 form-control" id="filter-sort">
+                        @if($sort == 0)
+                        <option value="0" selected>Không</option>
+                        @else                        
+                        <option value="0">Không</option>
+                        @endif
+                        @if($sort == 1)
+                        <option value="1" selected>Giá giảm</option>
+                        @else                        
+                        <option value="1">Giá giảm</option>
+                        @endif
+                        @if($sort == 2)
+                        <option value="2" selected>Giá tăng</option>
+                        @else                        
+                        <option value="2">Giá tăng</option>
+                        @endif
+                        @if($sort == 3)
+                        <option value="3" selected>Rate giảm</option>
+                        @else                        
+                        <option value="3">Rate giảm</option>
+                        @endif
                     </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="mx-1 form-control" id="filter-location" value="{{$location}}">
+                        @if($location == 0)
+                        <option value="0" selected>Tất cả</option>
+                        @else
+                        <option value="0">Tất cả</option>
+                        @endif
+                        @if($location == 1)
+                        <option value="1" selected>Hà Nội</option>
+                        @else
+                        <option value="1">Hà Nội</option>
+                        @endif
+                        @if($location == 2)
+                        <option value="2" selected>TPHCM</option>
+                        @else
+                        <option value="2">TPHCM</option>
+                        @endif
+                        @if($location == 3)
+                        <option value="3" selected>Hải Phòng</option>
+                        @else
+                        <option value="3">Hải Phòng</option>
+                        @endif
+                        @if($location == 4)
+                        <option value="4" selected>Đà Nẵng</option>
+                        @else
+                        <option value="4">Đà Nẵng</option>
+                        @endif
+                        @if($location == 5)
+                        <option value="5" selected>Cần thơ</option>
+                        @else
+                        <option value="5">Cần thơ</option>
+                        @endif
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-success" id="filter-btn">
+                        Filter
+                    </button>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     <div class="row">
         <div class="col-md-12">
             @foreach($hotels as $hotel)
@@ -90,5 +157,13 @@
     function hotelRoom(hotelId) {
         window.location = '/hotel/' + hotelId + "?start=" + "{{$start}}" + "&end=" + "{{$end}}";
     }
+
+    $('#filter-btn').click(function(){
+        let search = $('#filter-search').val();
+        let location = $('#filter-location').val();
+        let sort = $('#filter-sort').val();
+        window.location = '/search' + "?start=" + "{{$start}}" + "&end=" + "{{$end}}" + "&search=" + search + "&location=" +location + "&sort=" +sort;
+    })
+
 </script>
 @endpush

@@ -10,6 +10,7 @@
                 <input style="padding:10px;flex:2" placeholder="Chọn ngày" type="text" id="input-id" value="">
                 <!-- <input style="padding:10px;flex:2" class="mx-1" placeholder="Địa điểm" type="text" id="" value=""> -->
                 <select style="padding:10px;flex:2" class="mx-1" id="location-id">
+                    <option value="0">Tất cả</option>
                     <option value="1">Hà Nội</option>
                     <option value="2">TPHCM</option>
                     <option value="3">Hải Phòng</option>
